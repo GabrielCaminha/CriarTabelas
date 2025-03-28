@@ -69,30 +69,28 @@ stacked_bar_fig = go.Figure()
 stacked_bar_fig.add_trace(go.Bar(x=["Segurança", "Importante", "Normal"], y=categoria_soma.values, name="Total por Categoria", marker_color=["gold", "dodgerblue", "forestgreen"]))
 stacked_bar_fig.update_layout(title="Total de Itens por Categoria", barmode="stack", xaxis_title="Categoria", yaxis_title="Quantidade de Itens", template="plotly_dark")
 
-total_itens = df_equipamentos["Total"].sum()
-num_equipamentos = len(df_equipamentos)
+# total_itens = df_equipamentos["Total"].sum()
+# num_equipamentos = len(df_equipamentos)
 
-info_fig_total_itens = go.Figure()
-info_fig_total_itens.add_trace(go.Indicator(mode="number+delta", value=total_itens))
+# info_fig_total_itens = go.Figure()
+# info_fig_total_itens.add_trace(go.Indicator(mode="number+delta", value=total_itens))
 
-info_fig_num_equipamentos = go.Figure()
-info_fig_num_equipamentos.add_trace(go.Indicator(mode="number+delta", value=num_equipamentos))
+# info_fig_num_equipamentos = go.Figure()
+# info_fig_num_equipamentos.add_trace(go.Indicator(mode="number+delta", value=num_equipamentos))
 
 # Subplots para exibição da dashboard
 fig = sp.make_subplots(
-    rows=2, cols=3, subplot_titles=("Total de Itens Inspecionados", "Número de Equipamentos Inspecionados", "Distribuição de Itens", "Distribuição Percentual", "Total de Itens por Categoria"),
+    rows=2, cols=3, subplot_titles=("Distribuição de Itens", "Distribuição Percentual", "Total de Itens por Categoria"),
     column_widths=[0.33, 0.33, 0.33], row_heights=[0.5, 0.5],
-    specs=[[{"type": "indicator"}, {"type": "indicator"}, {"type": "bar"}], [{"type": "pie"}, {"type": "bar"}, None]]
+    specs=[[{"type": "bar"}, {"type": "pie"}, {"type": "bar"}], [None, None, None]]
 )
 
 # Adicionar as traces nos subgráficos
-fig.add_trace(info_fig_total_itens.data[0], row=1, col=1)
-fig.add_trace(info_fig_num_equipamentos.data[0], row=1, col=2)
-fig.add_trace(bar_fig.data[0], row=1, col=3)
-fig.add_trace(bar_fig.data[1], row=1, col=3)
-fig.add_trace(bar_fig.data[2], row=1, col=3)
-fig.add_trace(pie_fig.data[0], row=2, col=1)
-fig.add_trace(stacked_bar_fig.data[0], row=2, col=2)
+fig.add_trace(bar_fig.data[0], row=1, col=1)
+fig.add_trace(bar_fig.data[1], row=1, col=1)
+fig.add_trace(bar_fig.data[2], row=1, col=1)
+fig.add_trace(pie_fig.data[0], row=1, col=2)
+fig.add_trace(stacked_bar_fig.data[0], row=1, col=3)
 
 # Ajuste do layout do gráfico
 fig.update_layout(
@@ -107,5 +105,3 @@ fig.update_layout(
 
 # Exibir o gráfico na dashboard
 st.plotly_chart(fig)
-
-
